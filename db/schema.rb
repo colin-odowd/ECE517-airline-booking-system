@@ -12,6 +12,16 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_09_20_235725) do
   create_table "reservations", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_000353) do
+  create_table "flights", force: :cascade do |t|
+    t.string "name"
+    t.integer "class"
+    t.string "manufacturer"
+    t.string "source"
+    t.string "destination"
+    t.integer "capacity"
+    t.integer "status"
+    t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
