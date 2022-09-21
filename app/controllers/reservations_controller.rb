@@ -3,16 +3,23 @@ class ReservationsController < ApplicationController
 
   # GET /reservations or /reservations.json
   def index
-    @reservations = Reservation.all
+    if current_user.id != nil
+      @reservations = Reservation.where(user_id: current_user.id)
+    else
+      @reservations = Reservation.all
+    end
   end
 
   # GET /reservations/1 or /reservations/1.json
   def show
+    @reservations = Reservation.find(params[:id])
   end
 
   # GET /reservations/new
   def new
-    @reservation = Reservation.new
+    if @flight.nil?
+      @flight = Flight.find(params[:flight_id])
+    end
   end
 
   # GET /reservations/1/edit
@@ -22,6 +29,10 @@ class ReservationsController < ApplicationController
   # POST /reservations or /reservations.json
   def create
     @reservation = Reservation.new(reservation_params)
+
+    # We update the original product quantity
+    @flight.capacity = @flight.capacity - @transaction.quantity
+    @flight.save
 
     respond_to do |format|
       if @reservation.save

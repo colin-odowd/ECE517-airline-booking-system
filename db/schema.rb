@@ -10,8 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_011529) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_011857) do
+  create_table "baggages", force: :cascade do |t|
+    t.string "baggage_id"
+    t.integer "weight"
+    t.integer "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.integer "reservation_id", null: false
+    t.index ["baggage_id"], name: "index_baggages_on_baggage_id", unique: true
+    t.index ["reservation_id"], name: "index_baggages_on_reservation_id"
+    t.index ["user_id"], name: "index_baggages_on_user_id"
+  end
+
   create_table "flights", force: :cascade do |t|
+    t.string "flight_id"
     t.string "name"
     t.integer "class"
     t.string "manufacturer"
@@ -22,48 +36,44 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_011529) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "flight_id"
-    t.integer "reservations_id", null: false
     t.index ["flight_id"], name: "index_flights_on_flight_id", unique: true
-    t.index ["reservations_id"], name: "index_flights_on_reservations_id"
-  end
-
-  create_table "homes", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "reservations", force: :cascade do |t|
+    t.string "confirmation_number"
     t.string "ticket_class"
     t.integer "class"
     t.integer "amenities"
     t.decimal "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "confirmation_number"
+    t.integer "user_id", null: false
+    t.integer "flight_id", null: false
     t.integer "baggages_id", null: false
     t.index ["baggages_id"], name: "index_reservations_on_baggages_id"
     t.index ["confirmation_number"], name: "index_reservations_on_confirmation_number", unique: true
+    t.index ["flight_id"], name: "index_reservations_on_flight_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
     t.string "user_id"
+    t.string "name"
     t.string "credit_card"
     t.string "address"
     t.string "mobile"
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "reservations_id", null: false
     t.integer "baggages_id", null: false
     t.index ["baggages_id"], name: "index_users_on_baggages_id"
-    t.index ["reservations_id"], name: "index_users_on_reservations_id"
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
-  add_foreign_key "flights", "reservations", column: "reservations_id"
+  add_foreign_key "baggages", "reservations"
+  add_foreign_key "baggages", "users"
   add_foreign_key "reservations", "baggages", column: "baggages_id"
+  add_foreign_key "reservations", "flights"
+  add_foreign_key "reservations", "users"
   add_foreign_key "users", "baggages", column: "baggages_id"
-  add_foreign_key "users", "reservations", column: "reservations_id"
 end

@@ -1,10 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
-<%= render @reservation %>
+<p>
+  <strong>Reservation number:</strong>
+  <%= @reservation.transaction_number %>
+</p>
 
-<div>
-  <%= link_to "Edit this reservation", edit_reservation_path(@reservation) %> |
-  <%= link_to "Back to reservations", reservations_path %>
+<p>
+  <strong>Quantity:</strong>
+  <%= @reservation.number_of_passengers %>
+</p>
 
-  <%= button_to "Destroy this reservation", @reservation, method: :delete %>
-</div>
+<p>
+  <strong>Total cost:</strong>
+  <%= @reservation.cost %>
+</p>
+
+<%= link_to "Edit this reservation", edit_reservation_path(@reservation) %> |
+<%= link_to "Back to reservations", reservations_path %>
+
+
