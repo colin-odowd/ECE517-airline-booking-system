@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
+  get 'home/index'
   resources :baggages
   resources :reservations
   resources :flights
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
-  root "welcome#index"
+  root "home#index"
 end
