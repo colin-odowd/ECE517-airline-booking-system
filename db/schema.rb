@@ -10,9 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_20_235725) do
-  create_table "reservations", force: :cascade do |t|
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_000353) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_000438) do
   create_table "flights", force: :cascade do |t|
     t.string "name"
     t.integer "class"
@@ -24,6 +22,28 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_000353) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.string "confirmation_number"
+    t.string "ticket_class"
+    t.integer "class"
+    t.integer "amenities"
+    t.decimal "cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "name"
+    t.string "user_id"
+    t.string "credit_card"
+    t.string "address"
+    t.string "mobile"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
 end
