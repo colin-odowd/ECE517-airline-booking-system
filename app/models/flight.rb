@@ -1,6 +1,6 @@
 class Flight < ApplicationRecord
     has_many :reservations
 
-    enum class: [ :jumbo, :private, :small ]
-    enum status: [ :available, :complete ]
+    enum class: [ :class_jumbo, :class_private, :class_small ]
+    enum status: [ :status_available, :status_complete ]
 end
