@@ -24,15 +24,19 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/1/edit
   def edit
+    @reservation = Reservation.find(params[:id])
   end
 
   # POST /reservations or /reservations.json
   def create
-    @reservation = Reservation.new(reservation_params)
-
-    # We update the original product quantity
-    @flight.capacity = @flight.capacity - @transaction.number_of_passengers
-    @flight.save
+    capacity_check = @flight.capacity - @transaction.number_of_passengers
+    if (capacity_check >= 0) 
+      @reservation = Reservation.new(reservation_params)
+      @flight.capacity = capacity_check
+      @flight.save
+    else
+      redirect_to reservation_url(@reservation), notice: "Not enough capacity on this flight"
+    end
 
     respond_to do |format|
       if @reservation.save
