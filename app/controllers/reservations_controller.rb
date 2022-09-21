@@ -31,7 +31,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params)
 
     # We update the original product quantity
-    @flight.capacity = @flight.capacity - @transaction.quantity
+    @flight.capacity = @flight.capacity - @transaction.number_of_passengers
     @flight.save
 
     respond_to do |format|

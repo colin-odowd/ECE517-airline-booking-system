@@ -42,6 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_011857) do
   create_table "reservations", force: :cascade do |t|
     t.string "confirmation_number"
     t.string "ticket_class"
+    t.integer "number_of_passengers"
     t.integer "class"
     t.integer "amenities"
     t.decimal "cost"

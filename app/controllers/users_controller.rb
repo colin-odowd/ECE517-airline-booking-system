@@ -22,7 +22,13 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
+    if @user.save
+      flash[:success] = "Welcome to the Airline Booking System!"
+      redirect_to @user
+    else
+      render 'new'
+    end 
+ 
     respond_to do |format|
       if @user.save
         format.html { redirect_to user_url(@user), notice: "User was successfully created." }
