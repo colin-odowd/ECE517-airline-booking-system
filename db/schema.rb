@@ -63,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.string "address"
     t.string "mobile"
     t.string "email"
+    t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
