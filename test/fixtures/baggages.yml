@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  baggage_id: MyString
+  weight: 1
+  cost: 1
+
+two:
+  baggage_id: MyString
+  weight: 1
+  cost: 1
