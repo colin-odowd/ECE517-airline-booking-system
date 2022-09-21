@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_000438) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_004242) do
   create_table "flights", force: :cascade do |t|
     t.string "name"
     t.integer "class"
@@ -22,6 +22,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_000438) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "flight_id"
+    t.integer "reservations_id", null: false
+    t.index ["flight_id"], name: "index_flights_on_flight_id", unique: true
+    t.index ["reservations_id"], name: "index_flights_on_reservations_id"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -43,7 +47,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_000438) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_users_on_user_id", unique: true
+    t.integer "reservations_id", null: false
+    t.index ["reservations_id"], name: "index_users_on_reservations_id"
   end
 
+  add_foreign_key "flights", "reservations", column: "reservations_id"
+  add_foreign_key "users", "reservations", column: "reservations_id"
 end
