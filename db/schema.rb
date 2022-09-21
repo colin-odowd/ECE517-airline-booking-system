@@ -49,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_004242) do
     t.datetime "updated_at", null: false
     t.integer "reservations_id", null: false
     t.index ["reservations_id"], name: "index_users_on_reservations_id"
+    t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
   add_foreign_key "flights", "reservations", column: "reservations_id"
