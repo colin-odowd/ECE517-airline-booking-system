@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_011857) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
   create_table "baggages", force: :cascade do |t|
     t.string "baggage_id"
     t.integer "weight"
@@ -50,8 +50,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_011857) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "flight_id", null: false
-    t.integer "baggages_id", null: false
-    t.index ["baggages_id"], name: "index_reservations_on_baggages_id"
     t.index ["confirmation_number"], name: "index_reservations_on_confirmation_number", unique: true
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
@@ -67,15 +65,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_011857) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "baggages_id", null: false
-    t.index ["baggages_id"], name: "index_users_on_baggages_id"
     t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
   add_foreign_key "baggages", "reservations"
   add_foreign_key "baggages", "users"
-  add_foreign_key "reservations", "baggages", column: "baggages_id"
   add_foreign_key "reservations", "flights"
   add_foreign_key "reservations", "users"
-  add_foreign_key "users", "baggages", column: "baggages_id"
 end
