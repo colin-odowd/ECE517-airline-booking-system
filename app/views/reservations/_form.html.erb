@@ -12,7 +12,42 @@
   <% end %>
 
   <p>You are purchasing the flight: <%= @flight.name %></p>
-
   
+  <div class="field">
+    <%= form.label :confirmation_number %>
+    <%= form.text_field :confirmation_number, :id => 'confirmation_number', :readonly => true %>
+  </div>  
+
+  <div class="field">
+    <%= form.label :cost %>
+    <%= form.text_field :cost, :id => 'cost', :readonly => true %>
+  </div>
+
+  <div class="field">
+    <% qty = @reservation.number_of_passengers %>
+    <%= form.label :number_of_passengers %>
+    <%= form.number_field :number_of_passengers, :id => 'number_of_passengers', min: 1, max: qty, onchange: "calculateTotalPrice();" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :class %>
+    <%= form.select :class, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.class) %>
+  </div>
+ 
+  <div class="field">
+    <%= form.label :amenities %>
+    <%= form.select :amenities, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.amenities) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Complete reservation" %>
+  </div>
 
 <% end %>
+
+<script type="text/javascript">
+   function calculateTotalPrice() {
+       var price = "<%= @reservation.cost %>";
+       document.getElementById('cost').value = document.getElementById('number_of_passengers').value * price;
+   }
+</script>
