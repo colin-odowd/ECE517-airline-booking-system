@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   # PATCH/PUT /users/1 or /users/1.json
-  def update
+  def update  
     respond_to do |format|
       user_params[:admin] = @user.admin
       if @user.update(user_params)
@@ -64,6 +64,11 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      session_user = User.find_by_id(session[:user_id])
+
+      if session_user.id != @user.id && !session_user.admin
+        raise ActiveRecord::RecordNotFound, "Not found"
+      end
     end
 
     # Only allow a list of trusted parameters through.
