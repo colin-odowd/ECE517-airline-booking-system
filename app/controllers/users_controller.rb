@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    @user.admin = false
 
     respond_to do |format|
       if @user.save
@@ -38,6 +39,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
+      user_params[:admin] = @user.admin
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
