@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
   create_table "flights", force: :cascade do |t|
     t.string "flight_id"
     t.string "name"
-    t.integer "klass"
+    t.integer "flight_class"
     t.string "manufacturer"
     t.string "source"
     t.string "destination"
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
   create_table "reservations", force: :cascade do |t|
     t.string "confirmation_number"
     t.integer "number_of_passengers"
-    t.integer "class"
+    t.integer "ticket_class"
     t.integer "amenities"
     t.decimal "cost"
     t.datetime "created_at", null: false
