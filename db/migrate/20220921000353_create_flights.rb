@@ -3,7 +3,7 @@ class CreateFlights < ActiveRecord::Migration[7.0]
     create_table :flights do |t|
       t.string :flight_id
       t.string :name
-      t.integer :class
+      t.integer :klass
       t.string :manufacturer
       t.string :source
       t.string :destination
