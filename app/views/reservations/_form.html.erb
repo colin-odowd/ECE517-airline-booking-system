@@ -30,8 +30,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :class %>
-    <%= form.select :class, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.class) %>
+    <%= form.label :ticket_class %>
+    <%= form.select :ticket_class, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.class) %>
   </div>
  
   <div class="field">
