@@ -12,5 +12,6 @@ class CreateFlights < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    add_check_constraint :flights, "source != destination", name: "source_destination_check"
   end
 end
