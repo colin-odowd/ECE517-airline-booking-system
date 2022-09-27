@@ -17,14 +17,11 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
-    if @flight.nil?
-      @flight = Flight.find(params[:flight_id])
-    end
+    @reservation = Reservation.new
   end
 
   # GET /reservations/1/edit
   def edit
-    @reservation = Reservation.find(params[:id])
   end
 
   # POST /reservations or /reservations.json
