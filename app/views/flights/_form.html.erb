@@ -16,10 +16,10 @@
     <%= form.text_field :name %>
   </div>
 
-  <%= form_with(model: @flight, local: true) do |form| %>
+  <div>
     <%= form.label :flight_class %>
     <%= form.select :flight_class, options_for_select(Flight.flight_classes.map {|key, value| [key.titleize, Flight.flight_classes.key(value)]}, @flight.flight_class) %>
-  <% end %>
+  </div>
 
   <div>
     <%= form.label :manufacturer, style: "display: block" %>
@@ -42,8 +42,8 @@
   </div>
 
   <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.label :status %>
+    <%= form.select :status, options_for_select(Flight.statuses.map {|key, value| [key.titleize, Flight.statuses.key(value)]}, @flight.status) %>
   </div>
 
   <div>

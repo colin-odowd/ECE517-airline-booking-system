@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.check_constraint "source != destination", name: "source_destination_check"
   end
 
   create_table "reservations", force: :cascade do |t|
