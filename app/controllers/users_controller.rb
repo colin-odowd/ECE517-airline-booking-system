@@ -39,7 +39,6 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update  
     respond_to do |format|
-      user_params[:admin] = @user.admin
       if @user.update(user_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
@@ -65,8 +64,8 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
 
-      if current_user.id != @user.id && !current_user.admin
-        raise ActiveRecord::RecordNotFound, "Not found"
+      if current_user.id != @user.id
+        ensure_admin
       end
     end
 

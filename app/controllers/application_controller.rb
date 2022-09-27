@@ -15,8 +15,14 @@ class ApplicationController < ActionController::Base
     def logged_in?
       !current_user.nil?
     end
+
+    def ensure_admin
+      if !current_user.admin
+        raise ActiveRecord::RecordNotFound, "Not found"
+      end
+    end
    
     def authorized
       redirect_to root_path unless logged_in?
-    end  
+    end
 end
