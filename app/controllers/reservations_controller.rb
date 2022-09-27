@@ -26,18 +26,11 @@ class ReservationsController < ApplicationController
 
   # POST /reservations or /reservations.json
   def create
-    capacity_check = @flight.capacity - @transaction.number_of_passengers
-    if (capacity_check >= 0) 
-      @reservation = Reservation.new(reservation_params)
-      @flight.capacity = capacity_check
-      @flight.save
-    else
-      redirect_to reservation_url(@reservation), notice: "Not enough capacity on this flight"
-    end     
-
-    if (capacity_check == 0)
-      @flight.status = 1
-    end
+    @flight = Flight.find_by_id(reservation_params[:flight_id])
+    reservation_params[:cost] = @flight.cost * reservation_params[:number_of_passengers].to_i
+    @reservation = Reservation.new(reservation_params.permit(:number_of_passengers, :ticket_class, :amenities, :cost))
+    @reservation.flight = @flight
+    @reservation.user = current_user
     
     respond_to do |format|
       if @reservation.save
