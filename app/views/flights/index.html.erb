@@ -21,14 +21,14 @@
     <tbody>
     <% @flights.each do |flight| %>
       <tr>
-        <td><%= flight.name %></td>
-        <td><%= flight.flight_class %></td>
-        <td><%= flight.manufacturer %></td>
-        <td><%= flight.source %></td>
-        <td><%= flight.destination %></td>
-        <td><%= flight.capacity %></td>
-        <td><%= flight.passengers %></td>
-        <td><%= flight.cost %></td>
+        <td style="text-align:center"><%= flight.name %></td>
+        <td style="text-align:center"><%= flight.flight_class %></td>
+        <td style="text-align:center"><%= flight.manufacturer %></td>
+        <td style="text-align:center"><%= flight.source %></td>
+        <td style="text-align:center"><%= flight.destination %></td>
+        <td style="text-align:center"><%= flight.capacity %></td>
+        <td style="text-align:center"><%= flight.status %></td>
+        <td style="text-align:center"><%= flight.cost %></td>
         <td>
           <%= render flight %>
             <%= link_to "Show this flight", flight %>
