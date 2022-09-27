@@ -2,21 +2,49 @@
 
 <h1>Flights</h1>
 
-<div id="flights">
-  <% @flights.each do |flight| %>
-    <p>
-      <%= flight.name %>
-      <%= link_to "Show this flight", flight %>
-    </p>
-  <% end %>
-</div>
+<table style="width:100%" >
+  <thead>
+      <tr>
+        <th>Name&emsp;</th>
+        <th>Flight Class&emsp;</th>
+        <th>Manufacturer&emsp;</th>
+        <th>Source&emsp;</th>
+        <th>Destination&emsp;</th>
+        <th>Capacity&emsp;</th>
+        <th>Status&emsp;</th>
+        <th>Cost&emsp;</th>
+        <th colspan="8"></th>
+      </tr>
+    </thead>
+
+  <tbody>  
+    <tbody>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight.name %></td>
+        <td><%= flight.flight_class %></td>
+        <td><%= flight.manufacturer %></td>
+        <td><%= flight.source %></td>
+        <td><%= flight.destination %></td>
+        <td><%= flight.capacity %></td>
+        <td><%= flight.status %></td>
+        <td><%= flight.cost %></td>
+        <td>
+          <%= render flight %>
+            <%= link_to "Show this reservation", flight %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <div>
-  <% if @current_user.admin %>
-    <%= link_to "New Flight", new_flight_path %>
-  <% end %>
+  <%= link_to "New Flight", new_flight_path %>
 </div>
-
 <div>
   <%= link_to "Back to Home",  root_url %>
 </div>
+
+
+
+
