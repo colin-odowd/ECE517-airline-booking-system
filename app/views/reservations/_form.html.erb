@@ -11,10 +11,12 @@
     </div>
   <% end %>
 
+  <p>You are purchasing the flight: <%= @flight.name %></p>
+  
   <div class="field">
-    <%= form.label :flight_id %>
-    <%= form.select :flight_id, options_for_select(Flight.all.map {|flight| [flight.name, flight.id]}) %>
-  </div>
+    <%= form.label :confirmation_number %>
+    <%= form.text_field :confirmation_number, :id => 'confirmation_number', :readonly => true %>
+  </div>  
 
   <div class="field">
     <%= form.label :cost %>
@@ -24,17 +26,17 @@
   <div class="field">
     <% qty = @reservation.number_of_passengers %>
     <%= form.label :number_of_passengers %>
-    <%= form.number_field :number_of_passengers, :id => 'number_of_passengers', min: 1, max: qty, onchange: "calculateTotalPrice()", oninput: "calculateTotalPrice()" %>
+    <%= form.number_field :number_of_passengers, :id => 'number_of_passengers', min: 1, max: qty, onchange: "calculateTotalPrice();" %>
   </div>
 
   <div class="field">
     <%= form.label :ticket_class %>
-    <%= form.select :ticket_class, options_for_select(Reservation.ticket_classes.map {|key, value| [key.titleize, Reservation.ticket_classes.key(value)]}, @reservation.ticket_class) %>
+    <%= form.select :ticket_class, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.class) %>
   </div>
  
   <div class="field">
     <%= form.label :amenities %>
-    <%= form.select :amenities, options_for_select(Reservation.amenities.map {|key, value| [key.titleize, Reservation.amenities.key(value)]}, @reservation.amenities) %>
+    <%= form.select :amenities, options_for_select(Reservation.class.map {|key, value| [key.titleize, Reservation.class.key(value)]}, @reservation.amenities) %>
   </div>
 
   <div class="actions">
@@ -44,14 +46,8 @@
 <% end %>
 
 <script type="text/javascript">
-  var costs = {
-  <% Flight.all.each do |flight| %>
-    '<%= flight.id %>': <%= flight.cost %>,
-  <% end %>
-  };
-
-  function calculateTotalPrice() {
-    var price = costs[document.getElementById('reservation_flight_id').value];
-    document.getElementById('cost').value = document.getElementById('number_of_passengers').value * price;
-  }
+   function calculateTotalPrice() {
+       var price = "<%= @reservation.cost %>";
+       document.getElementById('cost').value = document.getElementById('number_of_passengers').value * price;
+   }
 </script>
