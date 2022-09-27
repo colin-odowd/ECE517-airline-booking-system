@@ -25,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
   end
 
   create_table "flights", force: :cascade do |t|
-    t.string "flight_id"
     t.string "name"
     t.integer "flight_class"
     t.string "manufacturer"
@@ -36,11 +35,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["flight_id"], name: "index_flights_on_flight_id", unique: true
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.string "confirmation_number"
     t.integer "number_of_passengers"
     t.integer "ticket_class"
     t.integer "amenities"
@@ -49,13 +46,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "flight_id", null: false
-    t.index ["confirmation_number"], name: "index_reservations_on_confirmation_number", unique: true
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "user_id"
     t.string "password_digest"
     t.string "name"
     t.string "credit_card"
@@ -65,7 +60,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_users_on_user_id", unique: true
   end
 
   add_foreign_key "baggages", "reservations"

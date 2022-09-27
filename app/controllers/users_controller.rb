@@ -64,9 +64,8 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
-      session_user = User.find_by_id(session[:user_id])
 
-      if session_user.id != @user.id && !session_user.admin
+      if current_user.id != @user.id && !current_user.admin
         raise ActiveRecord::RecordNotFound, "Not found"
       end
     end

@@ -1,7 +1,6 @@
 class CreateFlights < ActiveRecord::Migration[7.0]
   def change
     create_table :flights do |t|
-      t.string :flight_id
       t.string :name
       t.integer :flight_class
       t.string :manufacturer
@@ -13,6 +12,5 @@ class CreateFlights < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :flights, :flight_id, unique: true
   end
 end
