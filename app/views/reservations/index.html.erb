@@ -5,7 +5,7 @@
 <table>
   <thead>
       <tr>
-        <th>Transaction Number </th>
+        <th>Conformation Number </th>
         <th>Quantity </th>
         <th>Total Cost </th>
         <th>Ticket Class </th>
@@ -25,11 +25,11 @@
     <tbody>
     <% @reservations.each do |reservation| %>
       <tr>
-        <td><%= reservations.confirmation_number %></td>
-        <td><%= reservations.cost %></td>
-        <td><%= reservations.number_of_passengers %></td>
-        <td><%= reservations.ticket_class %></td>
-        <td><%= reservations.amenities %></td>
+        <td><%= reservation.id %></td>
+        <td><%= reservation.cost %></td>
+        <td><%= reservation.number_of_passengers %></td>
+        <td><%= reservation.ticket_class %></td>
+        <td><%= reservation.amenities %></td>
       </tr>
     <% end %>
   </tbody>
