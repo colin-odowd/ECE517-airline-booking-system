@@ -2,27 +2,27 @@
 
 <h1>Reservations</h1>
 
-<table>
+<table style="width:100%"> 
   <thead>
-      <tr>
-        <th>Confirmation Number&emsp;</th>
-        <th>Total Cost&emsp;</th>
-        <th>Quantity&emsp;</th>
-        <th>Ticket Class&emsp;</th>
-        <th>Amenities&emsp;</th>
-        <th colspan="5"></th>
-      </tr>
-    </thead>
+  <tr>
+    <th>Confirmation Number&emsp;</th>
+    <th>Total Cost&emsp;</th>
+    <th>Quantity&emsp;</th>
+    <th>Ticket Class&emsp;</th>
+    <th>Amenities&emsp;</th>
+    <th colspan="5"></th>
+  </tr>
+</thead>
 
   <tbody>  
     <tbody>
     <% @reservations.each do |reservation| %>
       <tr>
-        <td><%= reservation.id %></td>
-        <td><%= reservation.cost %></td>
-        <td><%= reservation.number_of_passengers %></td>
-        <td><%= reservation.ticket_class %></td>
-        <td><%= reservation.amenities %></td>
+        <td style="text-align:center"><%= reservation.id %></td>
+        <td style="text-align:center"><%= reservation.cost %></td>
+        <td style="text-align:center"><%= reservation.number_of_passengers %></td>
+        <td style="text-align:center"><%= reservation.ticket_class %></td>
+        <td style="text-align:center"><%= reservation.amenities %></td>
         <td>
           <%= render reservation %>
             <%= link_to "Show this reservation", reservation %>
