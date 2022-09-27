@@ -15,6 +15,6 @@ class Reservation < ApplicationRecord
     end
 
     trigger.after(:delete) do
-        "UPDATE flights SET passengers = passengers + OLD.passengers WHERE id = NEW.flight_id;"
+        "UPDATE flights SET passengers = passengers - OLD.passengers WHERE id = OLD.flight_id;"
     end
 end

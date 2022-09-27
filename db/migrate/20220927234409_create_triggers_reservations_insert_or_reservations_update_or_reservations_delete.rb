@@ -19,7 +19,7 @@ class CreateTriggersReservationsInsertOrReservationsUpdateOrReservationsDelete <
     create_trigger("reservations_after_delete_row_tr", :generated => true, :compatibility => 1).
         on("reservations").
         after(:delete) do
-      "UPDATE flights SET passengers = passengers + OLD.passengers WHERE id = NEW.flight_id;"
+      "UPDATE flights SET passengers = passengers - OLD.passengers WHERE id = OLD.flight_id;"
     end
   end
 

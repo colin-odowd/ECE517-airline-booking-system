@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_27_232204) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
   create_table "baggages", force: :cascade do |t|
     t.integer "weight"
     t.integer "cost"
@@ -85,7 +85,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_232204) do
   create_trigger("reservations_after_delete_row_tr", :generated => true, :compatibility => 1).
       on("reservations").
       after(:delete) do
-    "UPDATE flights SET passengers = passengers + OLD.passengers WHERE id = NEW.flight_id;"
+    "UPDATE flights SET passengers = passengers - OLD.passengers WHERE id = OLD.flight_id;"
   end
 
 end
