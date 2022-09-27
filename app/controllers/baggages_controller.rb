@@ -65,6 +65,6 @@ class BaggagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def baggage_params
-      params.require(:baggage).permit(:baggage_id, :weight, :cost)
+      params.require(:baggage).permit(:weight, :cost)
     end
 end
