@@ -5,23 +5,16 @@
 <table>
   <thead>
       <tr>
-        <th>Confirmation Number </th>
-        <th>Quantity </th>
-        <th>Total Cost </th>
-        <th>Ticket Class </th>
-        <th>Amenities</th>
+        <th>Confirmation Number&emsp;</th>
+        <th>Quantity&emsp;</th>
+        <th>Total Cost&emsp;</th>
+        <th>Ticket Class&emsp;</th>
+        <th>Amenities&emsp;</th>
         <th colspan="5"></th>
       </tr>
     </thead>
 
-  <tbody>
-    <% @reservations.each do |reservation| %>
-      <%= render reservation %>
-      <p>
-        <%= link_to "Show this reservation", reservation %>
-      </p>
-    <% end %>
-  
+  <tbody>  
     <tbody>
     <% @reservations.each do |reservation| %>
       <tr>
@@ -30,6 +23,10 @@
         <td><%= reservation.number_of_passengers %></td>
         <td><%= reservation.ticket_class %></td>
         <td><%= reservation.amenities %></td>
+        <td>
+          <%= render reservation %>
+            <%= link_to "Show this reservation", reservation %>
+        </td>
       </tr>
     <% end %>
   </tbody>
