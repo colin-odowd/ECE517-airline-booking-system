@@ -6,14 +6,26 @@
 </p>
 
 <p>
+  <strong>Total Cost:</strong>
+  <%= @reservation.cost %>
+</p>
+
+<p>
   <strong>Quantity:</strong>
   <%= @reservation.number_of_passengers %>
 </p>
 
 <p>
-  <strong>Total cost:</strong>
-  <%= @reservation.cost %>
+  <strong>Ticket Class:</strong>
+  <%= @reservation.ticket_class %>
 </p>
+
+<p>
+  <strong>Amenities:</strong>
+  <%= @reservation.amenities %>
+</p>
+
+
 
 <%= link_to "Edit this reservation", edit_reservation_path(@reservation) %> |
 <%= link_to "Back to reservations", reservations_path %>

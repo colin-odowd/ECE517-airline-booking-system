@@ -3,6 +3,6 @@ class Reservation < ApplicationRecord
     belongs_to :flight
     has_many :baggages, dependent: :delete_all
 
-    enum ticket_class: [ :class_first, :class_business, :class_economy ]
-    enum amenities: [ :amenities_none, :amenities_wifi, :amenities_meal_preference, :amenities_extra_legroom ]
+    enum ticket_class: [ :'First', :'Business', :'Economy' ]
+    enum amenities: [ :'None', :'Wifi', :'Meal Preference', :'Extra Legroom' ]
 end
