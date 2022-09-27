@@ -17,9 +17,7 @@ class ReservationsController < ApplicationController
 
   # GET /reservations/new
   def new
-    if @flight.nil?
-      @flight = Flight.find(params[:flight_id])
-    end
+    @reservation = Reservation.new
   end
 
   # GET /reservations/1/edit
