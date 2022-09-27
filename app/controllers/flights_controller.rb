@@ -23,6 +23,7 @@ class FlightsController < ApplicationController
   # POST /flights or /flights.json
   def create
     @flight = Flight.new(flight_params)
+    @flight.passengers = 0
 
     respond_to do |format|
       if @flight.save
@@ -66,6 +67,6 @@ class FlightsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def flight_params
-      params.require(:flight).permit(:name, :class, :manufacturer, :source, :destination, :capacity, :status, :cost)
+      params.require(:flight).permit(:name, :flight_class, :manufacturer, :source, :destination, :capacity, :cost)
     end
 end

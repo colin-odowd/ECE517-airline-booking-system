@@ -42,11 +42,6 @@
   </div>
 
   <div>
-    <%= form.label :status %>
-    <%= form.select :status, options_for_select(Flight.statuses.map {|key, value| [key.titleize, Flight.statuses.key(value)]}, @flight.status) %>
-  </div>
-
-  <div>
     <%= form.label :cost, style: "display: block" %>
     <%= form.number_field :cost %>
   </div>

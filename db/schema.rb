@@ -10,16 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_231206) do
   create_table "baggages", force: :cascade do |t|
-    t.string "baggage_id"
     t.integer "weight"
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "reservation_id", null: false
-    t.index ["baggage_id"], name: "index_baggages_on_baggage_id", unique: true
     t.index ["reservation_id"], name: "index_baggages_on_reservation_id"
     t.index ["user_id"], name: "index_baggages_on_user_id"
   end
@@ -31,10 +29,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.string "source"
     t.string "destination"
     t.integer "capacity"
-    t.integer "status"
+    t.integer "passengers"
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.check_constraint "capacity > 0", name: "capacity_check"
+    t.check_constraint "cost > 0", name: "cost_check"
+    t.check_constraint "passengers <= capacity", name: "passengers_check"
     t.check_constraint "source != destination", name: "source_destination_check"
   end
 
@@ -49,6 +50,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
     t.integer "flight_id", null: false
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
+    t.check_constraint "cost > 0", name: "cost_check"
+    t.check_constraint "number_of_passengers > 0", name: "number_of_passengers_check"
   end
 
   create_table "users", force: :cascade do |t|
@@ -67,4 +70,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_010939) do
   add_foreign_key "baggages", "users"
   add_foreign_key "reservations", "flights"
   add_foreign_key "reservations", "users"
+  create_trigger("reservations_after_insert_row_tr", :generated => true, :compatibility => 1).
+      on("reservations").
+      after(:insert) do
+    "UPDATE flights SET passengers = passengers + NEW.number_of_passengers WHERE id = NEW.flight_id;"
+  end
+
 end
