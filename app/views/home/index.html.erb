@@ -4,8 +4,8 @@
 <% if current_user %>
   Logged in as <%= current_user.name %>.
   <br>
-  <%= link_to 'View all flights', flights_path %><br>
-  <%= link_to 'View all reservations', reservations_path %><br>
+  <%= link_to 'View All Flights', flights_path %><br>
+  <%= link_to 'View All Reservations', reservations_path %><br>
   <%= link_to "Logout", logout_path %>
 <% else %>
   <%= link_to "Signup", signup_path %> or
