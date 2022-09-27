@@ -28,10 +28,10 @@ class ReservationsController < ApplicationController
   # POST /reservations or /reservations.json
   def create
     @flight = Flight.find_by_id(reservation_params[:flight_id])
-    @reservation = Reservation.new(reservation_params.permit(:number_of_passengers, :ticket_class, :amenities))
+    @reservation = Reservation.new(reservation_params.permit(:passengers, :ticket_class, :amenities))
     @reservation.flight = @flight
     @reservation.user = current_user
-    @reservation.cost = @flight.cost * @reservation.number_of_passengers
+    @reservation.cost = @flight.cost * @reservation.passengers
     
     respond_to do |format|
       if @reservation.save
@@ -76,6 +76,6 @@ class ReservationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def reservation_params
       params.fetch(:reservation, {})
-      params.require(:reservation).permit(:flight_id, :number_of_passengers, :ticket_class, :amenities)
+      params.require(:reservation).permit(:flight_id, :passengers, :ticket_class, :amenities)
     end
 end

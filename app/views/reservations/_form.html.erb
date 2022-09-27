@@ -22,9 +22,9 @@
   </div>
 
   <div class="field">
-    <% qty = @reservation.number_of_passengers %>
-    <%= form.label :number_of_passengers %>
-    <%= form.number_field :number_of_passengers, :id => 'number_of_passengers', min: 1, max: qty, onchange: "calculateTotalPrice()", oninput: "calculateTotalPrice()" %>
+    <% qty = @reservation.passengers %>
+    <%= form.label :passengers %>
+    <%= form.number_field :passengers, :id => 'passengers', min: 1, max: qty, onchange: "calculateTotalPrice()", oninput: "calculateTotalPrice()" %>
   </div>
 
   <div class="field">
@@ -52,6 +52,6 @@
 
   function calculateTotalPrice() {
     var price = costs[document.getElementById('reservation_flight_id').value];
-    document.getElementById('cost').value = document.getElementById('number_of_passengers').value * price;
+    document.getElementById('cost').value = document.getElementById('passengers').value * price;
   }
 </script>
