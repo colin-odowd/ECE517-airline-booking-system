@@ -7,6 +7,14 @@ class Reservation < ApplicationRecord
     enum amenities: [ :'None', :'Wifi', :'Meal Preference', :'Extra Legroom' ]
 
     trigger.after(:insert) do
-        "UPDATE flights SET passengers = passengers + NEW.number_of_passengers WHERE id = NEW.flight_id;"
+        "UPDATE flights SET passengers = passengers + NEW.passengers WHERE id = NEW.flight_id;"
+    end
+
+    trigger.after(:update) do
+        "UPDATE flights SET passengers = passengers + NEW.passengers - OLD.passengers WHERE id = NEW.flight_id;"
+    end
+
+    trigger.after(:delete) do
+        "UPDATE flights SET passengers = passengers + OLD.passengers WHERE id = NEW.flight_id;"
     end
 end

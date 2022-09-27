@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_27_231206) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_27_232204) do
   create_table "baggages", force: :cascade do |t|
     t.integer "weight"
     t.integer "cost"
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_231206) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.integer "number_of_passengers"
+    t.integer "passengers"
     t.integer "ticket_class"
     t.integer "amenities"
     t.decimal "cost"
@@ -51,7 +51,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_231206) do
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
     t.check_constraint "cost > 0", name: "cost_check"
-    t.check_constraint "number_of_passengers > 0", name: "number_of_passengers_check"
+    t.check_constraint "passengers > 0", name: "passengers_check"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,7 +73,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_231206) do
   create_trigger("reservations_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("reservations").
       after(:insert) do
-    "UPDATE flights SET passengers = passengers + NEW.number_of_passengers WHERE id = NEW.flight_id;"
+    "UPDATE flights SET passengers = passengers + NEW.passengers WHERE id = NEW.flight_id;"
+  end
+
+  create_trigger("reservations_after_update_row_tr", :generated => true, :compatibility => 1).
+      on("reservations").
+      after(:update) do
+    "UPDATE flights SET passengers = passengers + NEW.passengers - OLD.passengers WHERE id = NEW.flight_id;"
+  end
+
+  create_trigger("reservations_after_delete_row_tr", :generated => true, :compatibility => 1).
+      on("reservations").
+      after(:delete) do
+    "UPDATE flights SET passengers = passengers + OLD.passengers WHERE id = NEW.flight_id;"
   end
 
 end
