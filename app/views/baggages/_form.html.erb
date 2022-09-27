@@ -10,18 +10,36 @@
       </ul>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :weight, style: "display: block" %>
-    <%= form.number_field :weight %>
+  
+  <div class="field">
+    <%= form.label :bag_reservation_id %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.map {|reservation| [reservation.id]}) %>
   </div>
 
   <div>
-    <%= form.label :cost, style: "display: block" %>
-    <%= form.number_field :cost %>
+    <%= form.label :weight_in_pounds, style: "display: block" %>
+    <%= form.number_field :weight, min: 1, max: 12, onchange: "calculateBagPrice()", oninput: "calculateBagPrice()" %>
+  </div>
+
+  <div>
+  <%= form.label :cost %>
+  <%= form.text_field :cost, :id => 'cost', :readonly => true %>
   </div>
 
   <div>
     <%= form.submit %>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  var costs = {
+  <% Flight.all.each do |flight| %>
+    '<%= flight.id %>': <%= flight.cost_by_baggage_weight %>,
+  <% end %>
+  };
+
+  function calculateBagPrice() {
+    var price = costs[document.getElementById('bag_reservation_id_flight_id').value];
+    document.getElementById('cost').value = document.getElementById('weight').value * price;
+  }
+</script>

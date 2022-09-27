@@ -1,6 +1,7 @@
 class CreateBaggages < ActiveRecord::Migration[7.0]
   def change
     create_table :baggages do |t|
+      t.integer :bag_reservation_id
       t.integer :weight
       t.integer :cost
 

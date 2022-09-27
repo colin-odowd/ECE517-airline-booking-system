@@ -8,6 +8,8 @@ class CreateFlights < ActiveRecord::Migration[7.0]
       t.string :destination
       t.integer :capacity
       t.integer :passengers
+      t.integer :status
+      t.integer :cost_by_baggage_weight
       t.integer :cost
 
       t.timestamps

@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
   create_table "baggages", force: :cascade do |t|
+    t.integer "bag_reservation_id"
     t.integer "weight"
     t.integer "cost"
     t.datetime "created_at", null: false
@@ -30,6 +31,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
     t.string "destination"
     t.integer "capacity"
     t.integer "passengers"
+    t.integer "status"
+    t.integer "cost_by_baggage_weight"
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
