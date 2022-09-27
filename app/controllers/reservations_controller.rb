@@ -36,8 +36,12 @@ class ReservationsController < ApplicationController
       @flight.save
     else
       redirect_to reservation_url(@reservation), notice: "Not enough capacity on this flight"
-    end
+    end     
 
+    if (capacity_check == 0)
+      @flight.status = 1
+    end
+    
     respond_to do |format|
       if @reservation.save
         format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully created." }
