@@ -3,7 +3,12 @@ class BaggagesController < ApplicationController
 
   # GET /baggages or /baggages.json
   def index
-    @baggages = Baggage.all
+    begin
+      @reservation = Reservation.find(params[:reservation_id])
+      @baggages = @reservation.baggages
+    rescue 
+      @baggages = Baggage.all
+    end
   end
 
   # GET /baggages/1 or /baggages/1.json

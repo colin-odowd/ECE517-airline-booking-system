@@ -27,6 +27,7 @@
         <td style="text-align:center"><%= reservation.amenities %></td>
         <td> <%= link_to "Show Reservation", reservation %> </td>
         <td> <%= link_to "Edit Reservation", edit_reservation_path(reservation) %> </td>
+        <td> <%= link_to "See Baggages", reservation_baggages_path(reservation) %> </td>
         <td> <%= button_to 'Destroy Reservation', reservation_path(reservation), method: :delete %></td>
       </tr>
     <% end %>
