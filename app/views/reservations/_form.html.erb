@@ -21,7 +21,7 @@
   <div class="field">
     <% qty = @reservation.passengers %>
     <%= form.label :passengers %>
-    <%= form.number_field :passengers, :id => 'passengers', min: 1, max: "getMaxCapacity()", onchange: "calculateTotalPrice()", oninput: "calculateTotalPrice()" %>
+    <%= form.number_field :passengers, :id => 'passengers', min: 1, max: qty, onchange: "calculateTotalPrice()", oninput: "calculateTotalPrice()" %>
   </div>
 
   <div class="field">
@@ -48,16 +48,6 @@
 <% end %>
 
 <script type="text/javascript">
-  var capacity = {
-  <% Flight.all.each do |flight| %>
-    '<%= flight.id %>': <%= flight.capacity %>,
-  <% end %>
-  };
-
-  function getMaxCapacity() {
-    document.getElementById('passengers').max = capacity;
-  }
-
   var costs = {
   <% Flight.all.each do |flight| %>
     '<%= flight.id %>': <%= flight.cost %>,
