@@ -51,11 +51,18 @@ class ReservationsController < ApplicationController
 
   # PATCH/PUT /reservations/1 or /reservations/1.json
   def update
+
+    begin 
+      @reservation.update(reservation_params)
+    rescue => e
+    end
+
     respond_to do |format|
-      if @reservation.update(reservation_params)
+      if !e
         format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully updated." }
         format.json { render :show, status: :ok, location: @reservation }
       else
+        flash[:warning] = "Reservation was not updated."
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
