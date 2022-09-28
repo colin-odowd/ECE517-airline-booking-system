@@ -1,5 +1,11 @@
 <h1>Editing Flight</h1>
 
+<div style="color: red">
+  <%= flash[:warning] %>
+</div>
+
+<br>
+
 <%= render "form", flight: @flight %>
 
 <br>

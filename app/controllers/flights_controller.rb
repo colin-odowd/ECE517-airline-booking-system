@@ -30,7 +30,6 @@ class FlightsController < ApplicationController
     rescue => e
     end
         
-
     respond_to do |format|
       if !e
         format.html { redirect_to flight_url(@flight), notice: "Flight was successfully created." }
@@ -45,11 +44,18 @@ class FlightsController < ApplicationController
 
   # PATCH/PUT /flights/1 or /flights/1.json
   def update
+
+    begin 
+      @flight.update(flight_params)
+    rescue => e
+    end
+
     respond_to do |format|
-      if @flight.update(flight_params.except(:capacity, :passengers))
+      if !e
         format.html { redirect_to flight_url(@flight), notice: "Flight was successfully updated." }
         format.json { render :show, status: :ok, location: @flight }
       else
+        flash[:warning] = "Flight was not updated."
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @flight.errors, status: :unprocessable_entity }
       end

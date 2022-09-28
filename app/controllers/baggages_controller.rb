@@ -46,11 +46,18 @@ class BaggagesController < ApplicationController
 
   # PATCH/PUT /baggages/1 or /baggages/1.json
   def update
+
+    begin 
+      @flight.update(flight_params)
+    rescue => e
+    end
+
     respond_to do |format|
-      if @baggage.update(baggage_params)
+      if !e
         format.html { redirect_to baggage_url(@baggage), notice: "Baggage was successfully updated." }
         format.json { render :show, status: :ok, location: @baggage }
       else
+        flash[:warning] = "Baggage was not updated."
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @baggage.errors, status: :unprocessable_entity }
       end
