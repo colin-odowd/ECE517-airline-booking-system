@@ -3,8 +3,10 @@
 <%= render @flight %>
 
 <div>
-  <%= link_to "Edit this flight", edit_flight_path(@flight) %> |
-  <%= link_to "Back to flights", flights_path %>
-
-  <%= button_to "Destroy this flight", @flight, method: :delete %>
+  <%= link_to "Edit Flight", edit_flight_path(@flight) %>
+  <br>
+  <%= link_to "Back to Flights", flights_path %>
+  <br>
+  <br>
+  <%= button_to "Destroy Flight", @flight, method: :delete %>
 </div>

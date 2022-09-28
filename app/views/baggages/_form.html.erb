@@ -10,14 +10,17 @@
       </ul>
     </div>
   <% end %>
-  
-  <div class="field">
-    <%= form.label :bag_reservation_id %>
-    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.map {|reservation| [reservation.id]}) %>
-  </div>
 
+
+  <body onload="calculateBagPrice();">
+
+  <div class="field">
+    <%= form.label :bag_reservation_id, "Baggage Reservation ID" %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.map {|reservation| [reservation.id.to_s + " - " + reservation.flight.name]}) %>
+  </div>
+  
   <div>
-    <%= form.label :weight_in_pounds, style: "display: block" %>
+    <%= form.label :weight_in_pounds, "Baggage Weight (lbs)" %>
     <%= form.number_field :weight, min: 1, max: 12, onchange: "calculateBagPrice()", oninput: "calculateBagPrice()" %>
   </div>
 
@@ -26,8 +29,10 @@
     <input id="cost" readonly="readonly" type="text">
   </div>
 
+  <br>
+
   <div>
-    <%= form.submit %>
+    <%= form.submit "Submit Baggage" %>
   </div>
 <% end %>
 
@@ -39,7 +44,8 @@
   };
 
   function calculateBagPrice() {
-    var price = costs[document.getElementById('baggage_bag_reservation_id').value];
-    document.getElementById('cost').value = document.getElementById('baggage_weight').value * price;
+    var price = costs[document.getElementById('baggage_bag_reservation_id').value[0]];
+    return document.getElementById('cost').value = document.getElementById('baggage_weight').value * price;
   }
 </script>
+

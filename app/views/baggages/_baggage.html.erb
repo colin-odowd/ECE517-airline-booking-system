@@ -1,5 +1,15 @@
 <div id="<%= dom_id baggage %>">
   <p>
+    <strong>Confirmation Number:</strong>
+    <%= baggage.reservation.id %>
+  </p>
+  
+  <p>
+    <strong>Flight Name:</strong>
+    <%= baggage.reservation.flight.name %>
+  </p>
+
+  <p>
     <strong>Weight:</strong>
     <%= baggage.weight %>
   </p>

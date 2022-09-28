@@ -6,10 +6,12 @@
   <thead>
   <tr>
     <th>Confirmation Number&emsp;</th>
+    <th>Flight Name&emsp;</th>
     <th>Total Cost&emsp;</th>
     <th>Passengers&emsp;</th>
     <th>Ticket Class&emsp;</th>
     <th>Amenities&emsp;</th>
+    <th>Number of Baggages&emsp;</th>
     <th colspan="5"></th>
   </tr>
 </thead>
@@ -19,21 +21,21 @@
     <% @reservations.each do |reservation| %>
       <tr>
         <td style="text-align:center"><%= reservation.id %></td>
+        <td style="text-align:center"><%= reservation.flight.name %></td>
         <td style="text-align:center"><%= reservation.cost %></td>
         <td style="text-align:center"><%= reservation.passengers %></td>
         <td style="text-align:center"><%= reservation.ticket_class %></td>
         <td style="text-align:center"><%= reservation.amenities %></td>
-        <td>
-          <%= render reservation %>
-            <%= link_to "Show this reservation", reservation %>
-        </td>
+        <td> <%= link_to "Show Reservation", reservation %> </td>
+        <td> <%= link_to "Edit Reservation", edit_reservation_path(reservation) %> </td>
+        <td> <%= button_to 'Destroy Reservation', reservation_path(reservation), method: :delete %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <div>
-  <%= link_to "New reservation", new_reservation_path %>
+  <%= link_to "New Reservation", new_reservation_path %>
 </div>
 <div>
   <%= link_to "Back to Home",  root_url %>

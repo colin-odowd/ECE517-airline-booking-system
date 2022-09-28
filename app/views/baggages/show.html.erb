@@ -3,8 +3,10 @@
 <%= render @baggage %>
 
 <div>
-  <%= link_to "Edit this baggage", edit_baggage_path(@baggage) %> |
-  <%= link_to "Back to baggages", baggages_path %>
-
-  <%= button_to "Destroy this baggage", @baggage, method: :delete %>
+  <%= link_to "Edit Baggage", edit_baggage_path(@baggage) %>
+  <br>
+  <%= link_to "Back to Baggages", baggages_path %>
+  <br>
+  <br>
+  <%= button_to "Destroy Baggage", @baggage, method: :delete %>
 </div>

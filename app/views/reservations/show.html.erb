@@ -1,33 +1,12 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Confirmation number:</strong>
-  <%= @reservation.id %>
-</p>
+<%= render @reservation %>
 
-<p>
-  <strong>Total Cost:</strong>
-  <%= @reservation.cost %>
-</p>
-
-<p>
-  <strong>Passengers:</strong>
-  <%= @reservation.passengers %>
-</p>
-
-<p>
-  <strong>Ticket Class:</strong>
-  <%= @reservation.ticket_class %>
-</p>
-
-<p>
-  <strong>Amenities:</strong>
-  <%= @reservation.amenities %>
-</p>
-
-
-
-<%= link_to "Edit this reservation", edit_reservation_path(@reservation) %> |
-<%= link_to "Back to reservations", reservations_path %>
-
-
+<div>
+  <%= link_to "Edit Reservation", edit_reservation_path(@reservation) %> 
+  <br>
+  <%= link_to "Back to Reservations", reservations_path %>
+  <br>
+  <br>
+  <%= button_to "Destroy Reservation", @flight, method: :delete %>
+</div>

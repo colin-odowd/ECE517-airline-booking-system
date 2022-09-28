@@ -11,14 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :flight_id %>
-    <%= form.select :flight_id, options_for_select(Flight.all.map {|flight| [flight.name, flight.id]}) %>
-  </div>
+  <body onload="calculateTotalPrice();">
 
   <div class="field">
-    <label>Cost</label>
-    <input id="cost" readonly="readonly" type="text">
+    <%= form.label :flight_id %>
+    <%= form.select :flight_id, options_for_select(Flight.all.map {|flight| [flight.name, flight.id]}, form.object.id) %>
   </div>
 
   <div class="field">
@@ -28,7 +25,12 @@
   </div>
 
   <div class="field">
-    <%= form.label :ticket_class %>
+    <label>Cost</label>
+    <input id="cost" readonly="readonly" type="text">
+  </div>
+
+  <div class="field">
+    <%= form.label :ticket_class, "Ticket Class" %>
     <%= form.select :ticket_class, options_for_select(Reservation.ticket_classes.map {|key, value| [key.titleize, Reservation.ticket_classes.key(value)]}, @reservation.ticket_class) %>
   </div>
  
@@ -37,8 +39,10 @@
     <%= form.select :amenities, options_for_select(Reservation.amenities.map {|key, value| [key.titleize, Reservation.amenities.key(value)]}, @reservation.amenities) %>
   </div>
 
+  <br>
+
   <div class="actions">
-    <%= form.submit "Complete reservation" %>
+    <%= form.submit "Submit Reservation" %>
   </div>
 
 <% end %>

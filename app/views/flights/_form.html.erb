@@ -17,7 +17,7 @@
   </div>
 
   <div>
-    <%= form.label :flight_class %>
+    <%= form.label :flight_class, "Flight Class" %>
     <%= form.select :flight_class, options_for_select(Flight.flight_classes.map {|key, value| [key.titleize, Flight.flight_classes.key(value)]}, @flight.flight_class) %>
   </div>
 
@@ -38,11 +38,11 @@
 
   <div>
     <%= form.label :capacity, style: "display: block" %>
-    <%= form.number_field :capacity %>
+    <%= form.number_field :capacity,  readonly: form.object.persisted? %>
   </div>
 
   <div>
-    <%= form.label :cost_by_baggage_weight, style: "display: block" %>
+    <%= form.label :cost_by_baggage_weight, "Cost by Baggage Weight", style: "display: block" %>
     <%= form.number_field :cost_by_baggage_weight %>
   </div>
 
@@ -51,7 +51,9 @@
     <%= form.number_field :cost %>
   </div>
 
+  <br>
+
   <div>
-    <%= form.submit %>
+    <%= form.submit "Submit Flight" %> 
   </div>
 <% end %>

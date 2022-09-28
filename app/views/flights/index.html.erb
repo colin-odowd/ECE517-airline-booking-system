@@ -10,10 +10,12 @@
         <th>Manufacturer&emsp;</th>
         <th>Source&emsp;</th>
         <th>Destination&emsp;</th>
-        <th>Capacity&emsp;</th>
         <th>Passengers&emsp;</th>
+        <th>Capacity&emsp;</th>
+        <th>Cost by Baggage Weight&emsp;</th>
+
         <th>Cost&emsp;</th>
-        <th colspan="8"></th>
+        <th colspan="9"></th>
       </tr>
     </thead>
 
@@ -26,12 +28,13 @@
         <td style="text-align:center"><%= flight.manufacturer %></td>
         <td style="text-align:center"><%= flight.source %></td>
         <td style="text-align:center"><%= flight.destination %></td>
-        <td style="text-align:center"><%= flight.capacity %></td>
         <td style="text-align:center"><%= flight.passengers %></td>
+        <td style="text-align:center"><%= flight.capacity %></td>
+        <td style="text-align:center"><%= flight.cost_by_baggage_weight %></td>
         <td style="text-align:center"><%= flight.cost %></td>
-        <td>
-          <%= link_to "Show this flight", flight %>
-        </td>
+        <td> <%= link_to "Show Flight", flight %> </td>
+        <td> <%= link_to "Edit Flight", edit_flight_path(flight) %> </td>
+        <td> <%= button_to "Destroy Flight", flight_path(flight), method: :delete %> </td>
       </tr>
     <% end %>
   </tbody>

@@ -6,12 +6,12 @@
   <br>
   <%= link_to 'View All Flights', flights_path %><br>
   <%= link_to 'View All Reservations', reservations_path %><br>
-  <%= link_to 'View All Bags', baggages_path %><br>
+  <%= link_to 'View All Baggages', baggages_path %><br>
 
 <% if current_user.admin %>
-  <%= link_to 'View all users', users_path %><br>
+  <%= link_to 'View all Users', users_path %><br>
 <% else %>
-  <%= link_to 'View current user', users_path %><br>
+  <%= link_to 'View Current user', users_path %><br>
 <% end %>
 
   <%= link_to "Logout", logout_path %>
