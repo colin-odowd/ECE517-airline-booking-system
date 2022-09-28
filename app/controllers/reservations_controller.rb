@@ -31,13 +31,19 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params.permit(:passengers, :ticket_class, :amenities))
     @reservation.flight = @flight
     @reservation.user = current_user
-    
+
+    begin 
+      @reservation.save
+    rescue => e
+    end
+        
     respond_to do |format|
-      if @reservation.save
+      if !e
         format.html { redirect_to reservation_url(@reservation), notice: "Reservation was successfully created." }
         format.json { render :show, status: :created, location: @reservation }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        flash[:warning] = "Reservation was not created."
+        format.html { render :new, status: :unprocessable_entity}
         format.json { render json: @reservation.errors, status: :unprocessable_entity }
       end
     end

@@ -1,6 +1,13 @@
 <h1>New Reservation</h1>
 
+<div style="color: red">
+  <%= flash[:warning] %>
+</div>
+
+<br>
+
 <%= render "form", reservation: @reservation %>
+
 
 <br>
 

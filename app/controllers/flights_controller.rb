@@ -25,11 +25,18 @@ class FlightsController < ApplicationController
     @flight = Flight.new(flight_params)
     @flight.passengers = 0
 
+    begin 
+      @flight.save
+    rescue => e
+    end
+        
+
     respond_to do |format|
-      if @flight.save
+      if !e
         format.html { redirect_to flight_url(@flight), notice: "Flight was successfully created." }
         format.json { render :show, status: :created, location: @flight }
       else
+        flash[:warning] = "Flight was not created."
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @flight.errors, status: :unprocessable_entity }
       end
