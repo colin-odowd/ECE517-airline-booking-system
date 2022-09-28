@@ -22,8 +22,8 @@
   </div>
 
   <div>
-  <%= form.label :cost %>
-  <%= form.text_field :cost, :id => 'cost', :readonly => true %>
+    <label>Cost</label>
+    <input id="cost" readonly="readonly" type="text">
   </div>
 
   <div>
@@ -39,7 +39,7 @@
   };
 
   function calculateBagPrice() {
-    var price = costs[document.getElementById('bag_reservation_id_flight_id').value];
-    document.getElementById('cost').value = document.getElementById('weight').value * price;
+    var price = costs[document.getElementById('baggage_bag_reservation_id').value];
+    document.getElementById('cost').value = document.getElementById('baggage_weight').value * price;
   }
 </script>

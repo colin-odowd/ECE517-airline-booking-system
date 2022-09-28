@@ -17,4 +17,16 @@ class Reservation < ApplicationRecord
     trigger.after(:delete) do
         "UPDATE flights SET passengers = passengers - OLD.passengers WHERE id = OLD.flight_id;"
     end
+
+    def baggage_cost
+        if self.baggages.empty?
+            return 0
+        end
+        
+        self.baggages.map { |x| x.cost }.inject(:+)
+    end
+
+    def cost
+        self.passengers * self.flight.cost + baggage_cost
+    end
 end

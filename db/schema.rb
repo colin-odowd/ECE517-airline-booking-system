@@ -14,7 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
   create_table "baggages", force: :cascade do |t|
     t.integer "bag_reservation_id"
     t.integer "weight"
-    t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -46,14 +45,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
     t.integer "passengers"
     t.integer "ticket_class"
     t.integer "amenities"
-    t.decimal "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "flight_id", null: false
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
-    t.check_constraint "cost > 0", name: "cost_check"
     t.check_constraint "passengers > 0", name: "passengers_check"
   end
 

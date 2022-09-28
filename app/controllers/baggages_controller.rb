@@ -21,9 +21,11 @@ class BaggagesController < ApplicationController
 
   # POST /baggages or /baggages.json
   def create
+    reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
+    
     @baggage = Baggage.new(baggage_params)
-    @flight = Flight.find_by_id(Reservation.find_by_id(baggage_params[:bag_reservation_id]))
-    baggage_params[:cost] = @baggage.weight * @flight.cost_by_baggage_weight
+    @baggage.user = current_user
+    @baggage.reservation = reservation
 
     respond_to do |format|
       if @baggage.save
@@ -67,6 +69,6 @@ class BaggagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def baggage_params
-      params.require(:baggage).permit(:bag_reservation_id, :weight, :cost)
+      params.require(:baggage).permit(:bag_reservation_id, :weight)
     end
 end

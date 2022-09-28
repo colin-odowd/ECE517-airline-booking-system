@@ -31,7 +31,6 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(reservation_params.permit(:passengers, :ticket_class, :amenities))
     @reservation.flight = @flight
     @reservation.user = current_user
-    @reservation.cost = @flight.cost * @reservation.passengers
     
     respond_to do |format|
       if @reservation.save
