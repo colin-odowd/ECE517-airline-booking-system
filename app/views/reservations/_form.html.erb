@@ -15,7 +15,7 @@
 
   <div class="field">
     <%= form.label :flight_id %>
-    <%= form.select :flight_id, options_for_select(Flight.all.select{|f| f.passengers < f.capacity}.map {|f| [f.name, f.id]}, form.object.id) %>
+    <%= form.select :flight_id, options_for_select(Flight.map {|f| [f.name, f.id]}, form.object.id) %>
   </div>
 
   <div class="field">

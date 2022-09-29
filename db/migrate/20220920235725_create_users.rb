@@ -11,5 +11,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+    # add_check_constraint :users, "credit_card == NULL || credit_card ([0-9]{4})-([0-9]{4})-([0-9]{4})-([0-9]{4})", name: "credit_card_check"
   end
 end
