@@ -55,7 +55,10 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     if @user.admin
-      format.html { render :show, status: :unprocessable_entity }
+      respond_to do |format|
+        format.html { redirect_to users_url, notice: "Can't Destroy Admin" }
+        format.json { head :no_content }
+      end
     else
       @user.destroy
 
