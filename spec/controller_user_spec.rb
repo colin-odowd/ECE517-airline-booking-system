@@ -39,29 +39,30 @@ RSpec.describe UsersController, type: :controller do
   describe "POST create" do
     context "with valid attributes" do
       it "creates a new user" do
-        expect{
-          post :create, user: User.attributes_for(:user)
-        }.to change(User,:user).by(1)
-      end
-      
-      it "redirects to the new contact" do
-        post :create, user: User.attributes_for(:user)
-        response.should redirect_to User.last
+        post(:create, params: { user: { email: "user@gmail.com", password: "password" } }, session: { user_id: current_user.id })
+        expect(assigns(:user).email).to eq("user@gmail.com")
       end
     end 
   end
 
   describe "POST update" do
     it "renders the update" do
-      get(:update, params: { id: current_user.id }, session: { user_id: current_user.id })
-      expect(response).to render_template("update")
+      post(:create, params: { id: current_user.id, user: { name: "name",email: "admin@admin.com", password: "password" } }, session: { user_id: current_user.id })
+      expect(assigns(:user).name).to eq("name")
+      post(:create, params: { id: current_user.id, user: { name: "admin", email: "admin@admin.com", password: "password" } }, session: { user_id: current_user.id })
+      expect(assigns(:user).name).to eq("admin")
     end
   end
 
   describe "GET destroy user" do
     it "renders the destroy" do
-      get(:destroy, session: { user_id: current_user.id })
-      expect(response).to render_template("destroy")
+      User.all.each { |u|
+        if !u.admin
+          post(:delete, params: { id: u.id }, session: { user_id: current_user.id })
+        end
+      }
+
+      expect(User.all.size).to eq(1)
     end
   end
 end
