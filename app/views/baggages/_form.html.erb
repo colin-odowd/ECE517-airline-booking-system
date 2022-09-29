@@ -15,8 +15,8 @@
   <body onload="calculateBagPrice();">
 
   <div class="field">
-    <%= form.label :bag_reservation_id, "Baggage Reservation ID" %>
-    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.map {|reservation| [reservation.id.to_s + " - " + reservation.flight.name]}) %>
+    <%= form.label :bag_reservation_id, "Baggage Flight and Reservation ID" %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.flight.name + " - " + r.id.to_s, r.id]}) %>
   </div>
   
   <div>
@@ -44,7 +44,7 @@
   };
 
   function calculateBagPrice() {
-    var price = costs[document.getElementById('baggage_bag_reservation_id').value[0]];
+    var price = costs[document.getElementById('baggage_bag_reservation_id').value];
     return document.getElementById('cost').value = document.getElementById('baggage_weight').value * price;
   }
 </script>

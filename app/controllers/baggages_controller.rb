@@ -3,12 +3,7 @@ class BaggagesController < ApplicationController
 
   # GET /baggages or /baggages.json
   def index
-    begin
-      @reservation = Reservation.find(params[:reservation_id])
-      @baggages = @reservation.baggages
-    rescue 
-      @baggages = Baggage.all
-    end
+    @baggages = Baggage.all.select{|r| @current_user.admin || r.user_id == @current_user.id}
   end
 
   # GET /baggages/1 or /baggages/1.json
@@ -26,15 +21,18 @@ class BaggagesController < ApplicationController
 
   # POST /baggages or /baggages.json
   def create
-    reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
-    
-    @baggage = Baggage.new(baggage_params)
-    @baggage.user = current_user
-    @baggage.reservation = reservation
+    e = true
 
-    begin 
-      @baggage.save
-    rescue => e
+    reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
+    if reservation.user_id == @current_user.id
+      @baggage = Baggage.new(baggage_params)
+      @baggage.reservation = reservation
+
+      begin 
+        @baggage.save
+        e = false
+      rescue => e
+      end
     end
 
     respond_to do |format|
