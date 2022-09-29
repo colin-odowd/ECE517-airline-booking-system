@@ -76,5 +76,5 @@ end
 gem 'hairtrigger'
 
 gem 'rspec'
-
 gem 'rspec-rails'
+gem 'rails-controller-testing'
