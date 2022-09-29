@@ -15,8 +15,8 @@
   <body onload="calculateBagPrice();">
 
   <div class="field">
-    <%= form.label :bag_reservation_id, "Baggage Flight and Reservation ID" %>
-    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.flight.name + " - " + r.id.to_s, r.id]}) %>
+    <%= form.label :bag_reservation_id, "Reservation Confirmation Number" %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.id.to_s, r.id]}) %>
   </div>
   
   <div>

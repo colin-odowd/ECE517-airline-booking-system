@@ -6,6 +6,7 @@
   <thead>
   <tr>
     <th>Confirmation Number&emsp;</th>
+    <th>User ID&emsp;</th>
     <th>Flight Name&emsp;</th>
     <th>Total Cost&emsp;</th>
     <th>Passengers&emsp;</th>
@@ -20,6 +21,7 @@
     <% @reservations.each do |reservation| %>
       <tr>
         <td style="text-align:center"><%= reservation.id %></td>
+        <td style="text-align:center"><%= reservation.user_id %></td>
         <td style="text-align:center"><%= reservation.flight.name %></td>
         <td style="text-align:center"><%= reservation.cost %></td>
         <td style="text-align:center"><%= reservation.passengers %></td>

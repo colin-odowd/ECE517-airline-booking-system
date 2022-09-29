@@ -6,6 +6,7 @@
   <thead>
       <tr>
         <th>Confirmation Number&emsp;</th>
+        <th>User ID&emsp;</th>
         <th>Flight Number&emsp;</th>
         <th>Baggage Weight&emsp;</th>
         <th>Cost&emsp;</th>
@@ -18,6 +19,7 @@
     <% @baggages.each do |baggage| %>
       <tr>
         <td style="text-align:center"><%= baggage.reservation.id %></td>
+        <td style="text-align:center"><%= baggage.reservation.user_id %></td>
         <td style="text-align:center"><%= baggage.reservation.flight.name %></td>
         <td style="text-align:center"><%= baggage.weight %></td>
         <td style="text-align:center"><%= baggage.cost %></td>
