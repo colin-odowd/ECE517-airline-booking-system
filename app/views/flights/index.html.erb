@@ -43,7 +43,9 @@
 </table>
 
 <div>
+<%if current_user.admin %>
   <%= link_to "New Flight", new_flight_path %>
+<% end %>
 </div>
 <div>
   <%= link_to "Back to Home",  root_url %>
