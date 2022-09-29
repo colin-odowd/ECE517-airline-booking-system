@@ -43,7 +43,7 @@
 
   <div>
     <%= form.label :credit_card, style: "display: block" %>
-    <%= form.text_field :credit_card, pattern: "^([0-9]{4})(-([0-9]{4})){3}", 
+    <%= form.text_field :credit_card, pattern: "\\A([0-9]{4})(-([0-9]{4})){3}", 
         title: "Use Format: 0123-4567-9810-1112" %>
   </div>
 
