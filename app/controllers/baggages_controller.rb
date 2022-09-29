@@ -24,7 +24,7 @@ class BaggagesController < ApplicationController
     e = true
 
     reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
-    if reservation.user_id == @current_user.id
+    if @current_user.admin || reservation.user_id == @current_user.id
       @baggage = Baggage.new(baggage_params)
       @baggage.reservation = reservation
 
