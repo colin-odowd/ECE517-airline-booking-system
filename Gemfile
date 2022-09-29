@@ -76,3 +76,5 @@ end
 gem 'hairtrigger'
 
 gem 'rspec'
+
+gem 'rspec-rails'
