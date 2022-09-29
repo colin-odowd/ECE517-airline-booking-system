@@ -3,7 +3,7 @@ class BaggagesController < ApplicationController
 
   # GET /baggages or /baggages.json
   def index
-    @baggages = Baggage.all.select{|r| @current_user.admin || r.user_id == @current_user.id}
+    @baggages = Baggage.all.select{|b| @current_user.admin || b.reservation.user_id == @current_user.id}
   end
 
   # GET /baggages/1 or /baggages/1.json
