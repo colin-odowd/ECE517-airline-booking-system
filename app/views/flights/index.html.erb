@@ -33,8 +33,10 @@
         <td style="text-align:center"><%= flight.cost_by_baggage_weight %></td>
         <td style="text-align:center"><%= flight.cost %></td>
         <td> <%= link_to "Show Flight", flight %> </td>
-        <td> <%= link_to "Edit Flight", edit_flight_path(flight) %> </td>
-        <td> <%= button_to "Destroy Flight", flight_path(flight), method: :delete %> </td>
+        <%if current_user.admin %>
+          <td> <%= link_to "Edit Flight", edit_flight_path(flight) %> </td>
+          <td> <%= button_to "Destroy Flight", flight_path(flight), method: :delete %> </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
