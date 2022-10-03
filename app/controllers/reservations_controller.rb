@@ -25,7 +25,12 @@ class ReservationsController < ApplicationController
   def create
     @reservation = Reservation.new(reservation_params.permit(:passengers, :ticket_class, :amenities))
     @reservation.flight = Flight.find_by_id(reservation_params[:flight_id])
-    @reservation.user = current_user
+
+    if current_user.admin
+      @reservation.user = User.find_by_id(reservation_params[:user_id])
+    else
+      @reservation.user = current_user
+    end
         
     respond_to do |format|
       if @reservation.save
@@ -75,6 +80,6 @@ class ReservationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def reservation_params
       params.fetch(:reservation, {})
-      params.require(:reservation).permit(:flight_id, :passengers, :ticket_class, :amenities)
+      params.require(:reservation).permit(:flight_id, :user_id, :passengers, :ticket_class, :amenities)
     end
 end
