@@ -61,10 +61,11 @@ function search() {
   var flights = document.getElementById("flights");
   for (var i = 0; i < flights.rows.length; i++) {
     var flight = flights.rows[i];
+    var name = flight.cells[0].innerText.toLowerCase();
     var src = flight.cells[3].innerText.toLowerCase();
     var dest = flight.cells[4].innerText.toLowerCase();
 
-    if (filter == "" || filter.includes(src) || filter.includes(dest) || src.includes(filter) || dest.includes(filter)) {
+    if (filter == "" || filter.includes(name) || filter.includes(src) || filter.includes(dest) || name.includes(filter) || src.includes(filter) || dest.includes(filter)) {
       flight.style.display = '';
     } else {
       flight.style.display = 'none';
