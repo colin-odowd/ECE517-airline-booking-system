@@ -14,9 +14,7 @@ class CreateFlights < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_check_constraint :flights, "source != destination", name: "source_destination_check"
-    add_check_constraint :flights, "cost > 0", name: "cost_check"
-    add_check_constraint :flights, "capacity > 0", name: "capacity_check"
-    add_check_constraint :flights, "passengers <= capacity", name: "passengers_check"
+    add_check_constraint :flights, "passengers >= 0", name: "passengers_check"
+    add_check_constraint :flights, "passengers <= capacity", name: "passengers_capacity_check"
   end
 end

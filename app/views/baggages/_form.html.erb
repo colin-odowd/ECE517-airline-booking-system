@@ -11,17 +11,14 @@
     </div>
   <% end %>
 
-
-  <body onload="calculateBagPrice();">
-
   <div class="field">
     <%= form.label :bag_reservation_id, "Reservation Confirmation Number" %>
-    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.id.to_s, r.id]}) %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.id.to_s, r.id]}), {}, disabled: !@baggage.reservation.nil? %>
   </div>
   
   <div>
     <%= form.label :weight_in_pounds, "Baggage Weight (lbs)" %>
-    <%= form.number_field :weight, min: 1, max: 12, onchange: "calculateBagPrice()", oninput: "calculateBagPrice()" %>
+    <%= form.number_field :weight, min: 1, onchange: "calculateBagPrice()", oninput: "calculateBagPrice()" %>
   </div>
 
   <div>
@@ -47,5 +44,7 @@
     var price = costs[document.getElementById('baggage_bag_reservation_id').value];
     return document.getElementById('cost').value = document.getElementById('baggage_weight').value * price;
   }
+
+  calculateBagPrice();
 </script>
 

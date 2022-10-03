@@ -32,10 +32,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
     t.integer "cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.check_constraint "capacity > 0", name: "capacity_check"
-    t.check_constraint "cost > 0", name: "cost_check"
-    t.check_constraint "passengers <= capacity", name: "passengers_check"
-    t.check_constraint "source != destination", name: "source_destination_check"
+    t.check_constraint "passengers <= capacity", name: "passengers_capacity_check"
+    t.check_constraint "passengers >= 0", name: "passengers_check"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -48,7 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_27_234409) do
     t.integer "flight_id", null: false
     t.index ["flight_id"], name: "index_reservations_on_flight_id"
     t.index ["user_id"], name: "index_reservations_on_user_id"
-    t.check_constraint "passengers > 0", name: "passengers_check"
   end
 
   create_table "users", force: :cascade do |t|

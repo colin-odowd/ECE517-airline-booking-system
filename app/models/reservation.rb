@@ -1,4 +1,26 @@
+class ReservationCreateValidator < ActiveModel::Validator
+  def validate(reservation)
+    return unless reservation.errors.blank?
+
+    if reservation.flight.passengers + reservation.passengers > reservation.flight.capacity
+        reservation.errors.add :base, "Too many passengers"
+    end
+  end
+end
+
+class ReservationUpdateValidator < ActiveModel::Validator
+    def validate(reservation)
+      return unless reservation.errors.blank?
+
+      if reservation.flight.passengers + (reservation.passengers - reservation.old_passengers) > reservation.flight.capacity
+        reservation.errors.add :base, "Too many passengers"
+      end
+    end
+  end
+
 class Reservation < ApplicationRecord
+    attr_accessor :old_passengers
+
     belongs_to :user
     belongs_to :flight
     has_many :baggages, dependent: :delete_all
@@ -6,9 +28,15 @@ class Reservation < ApplicationRecord
     enum ticket_class: [ :'First', :'Business', :'Economy' ]
     enum amenities: [ :'None', :'Wifi', :'Meal Preference', :'Extra Legroom' ]
 
+    validates :user, presence: true
+    validates :flight, presence: true
     validates :passengers, presence: true
     validates :ticket_class, presence: true
     validates :amenities, presence: true
+
+    validates :passengers, comparison: { greater_than: 0 }
+    validates_with ReservationCreateValidator, on: :create
+    validates_with ReservationUpdateValidator, on: :update
 
     trigger.after(:insert) do
         "UPDATE flights SET passengers = passengers + NEW.passengers WHERE id = NEW.flight_id;"

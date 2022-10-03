@@ -21,25 +21,18 @@ class BaggagesController < ApplicationController
 
   # POST /baggages or /baggages.json
   def create
-    e = true
-
     reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
-    if @current_user.admin || reservation.user_id == @current_user.id
-      @baggage = Baggage.new(baggage_params.permit(:weight))
-      @baggage.reservation = reservation
+    ensure_admin unless current_user.id  == reservation.user_id
 
-      begin 
-        @baggage.save!
-        e = false
-      rescue => e
-      end
-    end
+    @baggage = Baggage.new(baggage_params.permit(:weight))
+    @baggage.reservation = reservation
 
     respond_to do |format|
-      if !e
+      if @baggage.save
         format.html { redirect_to baggage_url(@baggage), notice: "Baggage was successfully created." }
         format.json { render :show, status: :created, location: @baggage }
       else
+        @baggage.reservation = nil
         flash[:warning] = "Baggage was not created."
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @baggage.errors, status: :unprocessable_entity }
@@ -49,14 +42,8 @@ class BaggagesController < ApplicationController
 
   # PATCH/PUT /baggages/1 or /baggages/1.json
   def update
-
-    begin 
-      @flight.update!(flight_params)
-    rescue => e
-    end
-
     respond_to do |format|
-      if !e
+      if @baggage.update(baggage_params.permit(:weight))
         format.html { redirect_to baggage_url(@baggage), notice: "Baggage was successfully updated." }
         format.json { render :show, status: :ok, location: @baggage }
       else
@@ -81,6 +68,7 @@ class BaggagesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_baggage
       @baggage = Baggage.find(params[:id])
+      ensure_admin unless current_user.id == @baggage.reservation.user.id
     end
 
     # Only allow a list of trusted parameters through.

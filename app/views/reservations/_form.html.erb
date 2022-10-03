@@ -11,11 +11,9 @@
     </div>
   <% end %>
 
-  <body onload="calculateTotalPrice();">
-
   <div class="field">
     <%= form.label :flight_id %>
-    <%= form.select :flight_id, options_for_select(Flight.all.map {|f| [f.name, f.id]}, form.object.id), {}, onchange: "setMaxReservation()" %>
+    <%= form.select :flight_id, options_for_select(Flight.all.map {|f| [f.name, f.id]}, form.object.id), {}, onchange: "setMaxReservation()", disabled: !@reservation.flight.nil? %>
   </div>
 
   <div class="field">
@@ -41,12 +39,15 @@
   <br>
 
   <div class="actions">
-    <%= form.submit "Submit Reservation" %>
+    <%= form.submit "Submit Reservation", id: "submit" %>
   </div>
 
 <% end %>
 
 <script type="text/javascript">
+  var submit = document.getElementById("submit");
+  var originalSubmitValue = submit.value;
+
   var costs = {
   <% Flight.all.each do |flight| %>
     '<%= flight.id %>': <%= flight.cost %>,
@@ -55,19 +56,40 @@
 
   var capacities = {
   <% Flight.all.each do |flight| %>
-    '<%= flight.id %>': <%= flight.capacity %> - (<%= flight.passengers %> - <%= @reservation.passengers.to_i %>),
+    '<%= flight.id %>': <%= flight.capacity %> - <%= flight.passengers %>,
   <% end %>
   };
 
+  function getFlightId() {
+    return document.getElementById('reservation_flight_id').value;
+  }
+
   function calculateTotalPrice() {
-    var price = costs[document.getElementById('reservation_flight_id').value];
+    var price = costs[getFlightId()];
     document.getElementById('cost').value = document.getElementById('passengers').value * price;
   }
 
   function setMaxReservation() {
-    var max = capacities[document.getElementById('reservation_flight_id').value];
+    var max = capacities[getFlightId()];
+
+<% if !reservation.flight.nil? %>
+    if (getFlightId() == <%= reservation.flight.id %>) {
+      max += <%= reservation.passengers.to_i %>;
+    }
+<% end %>
+    
     document.getElementById('passengers').max = max;
+
+    var submit = document.getElementById("submit");
+    if (max == 0) {
+      submit.value = "Flight is full";
+      submit.disabled = true;
+    } else {
+      submit.value = originalSubmitValue;
+      submit.disabled = false;
+    }
   }
 
+  calculateTotalPrice();
   setMaxReservation();
 </script>
