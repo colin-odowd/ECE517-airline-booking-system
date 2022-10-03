@@ -25,13 +25,18 @@
   </p>
 
   <p>
+    <strong>Passengers:</strong>
+    <%= flight.passengers %>
+  </p>
+
+  <p>
     <strong>Capacity:</strong>
     <%= flight.capacity %>
   </p>
 
   <p>
-    <strong>Passengers:</strong>
-    <%= flight.passengers %>
+    <strong>Status:</strong>
+    <%= flight.passengers < flight.capacity ? "Available" : "Complete" %>
   </p>
 
   <p>
