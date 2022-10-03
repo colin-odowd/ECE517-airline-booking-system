@@ -29,7 +29,7 @@ class ReservationsController < ApplicationController
     @reservation.user = current_user
 
     begin 
-      @reservation.save
+      @reservation.save!
     rescue => e
     end
         
@@ -49,7 +49,7 @@ class ReservationsController < ApplicationController
   def update
 
     begin 
-      @reservation.update(reservation_params)
+      @reservation.update!(reservation_params)
     rescue => e
     end
 

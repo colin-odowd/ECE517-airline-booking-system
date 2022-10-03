@@ -25,11 +25,11 @@ class BaggagesController < ApplicationController
 
     reservation = Reservation.find_by_id(baggage_params[:bag_reservation_id])
     if @current_user.admin || reservation.user_id == @current_user.id
-      @baggage = Baggage.new(baggage_params)
+      @baggage = Baggage.new(baggage_params.permit(:weight))
       @baggage.reservation = reservation
 
       begin 
-        @baggage.save
+        @baggage.save!
         e = false
       rescue => e
       end
@@ -51,7 +51,7 @@ class BaggagesController < ApplicationController
   def update
 
     begin 
-      @flight.update(flight_params)
+      @flight.update!(flight_params)
     rescue => e
     end
 

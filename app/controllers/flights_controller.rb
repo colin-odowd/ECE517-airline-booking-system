@@ -26,7 +26,7 @@ class FlightsController < ApplicationController
     @flight.passengers = 0
 
     begin 
-      @flight.save
+      @flight.save!
     rescue => e
     end
         
@@ -46,7 +46,7 @@ class FlightsController < ApplicationController
   def update
 
     begin 
-      @flight.update(flight_params)
+      @flight.update!(flight_params)
     rescue => e
     end
 

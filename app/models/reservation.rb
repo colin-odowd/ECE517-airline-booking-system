@@ -6,6 +6,10 @@ class Reservation < ApplicationRecord
     enum ticket_class: [ :'First', :'Business', :'Economy' ]
     enum amenities: [ :'None', :'Wifi', :'Meal Preference', :'Extra Legroom' ]
 
+    validates :passengers, presence: true
+    validates :ticket_class, presence: true
+    validates :amenities, presence: true
+
     trigger.after(:insert) do
         "UPDATE flights SET passengers = passengers + NEW.passengers WHERE id = NEW.flight_id;"
     end
