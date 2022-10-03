@@ -12,6 +12,7 @@
         <th>Destination&emsp;</th>
         <th>Passengers&emsp;</th>
         <th>Capacity&emsp;</th>
+        <th>Status&emsp;</th>
         <th>Cost by Baggage Weight&emsp;</th>
 
         <th>Cost&emsp;</th>
@@ -30,6 +31,7 @@
         <td style="text-align:center"><%= flight.destination %></td>
         <td style="text-align:center"><%= flight.passengers %></td>
         <td style="text-align:center"><%= flight.capacity %></td>
+        <td style="text-align:center"><%= flight.passengers < flight.capacity ? "Available" : "Full" %></td>
         <td style="text-align:center"><%= flight.cost_by_baggage_weight %></td>
         <td style="text-align:center"><%= flight.cost %></td>
         <td> <%= link_to "Show Flight", flight %> </td>
