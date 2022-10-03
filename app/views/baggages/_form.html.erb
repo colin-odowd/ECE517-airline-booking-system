@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :bag_reservation_id, "Reservation Confirmation Number" %>
-    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.id.to_s, r.id]}), {}, disabled: !@baggage.reservation.nil? %>
+    <%= form.select :bag_reservation_id, options_for_select(Reservation.all.select{|r| @current_user.admin || r.user_id == @current_user.id}.map {|r| [r.id.to_s, r.id]}), {}, disabled: form.object.persisted? %>
   </div>
   
   <div>

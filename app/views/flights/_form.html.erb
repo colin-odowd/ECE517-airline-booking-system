@@ -38,7 +38,7 @@
 
   <div>
     <%= form.label :capacity, style: "display: block" %>
-    <%= form.number_field :capacity,  readonly: form.object.persisted? %>
+    <%= form.number_field :capacity, min: @flight.passengers.to_i %>
   </div>
 
   <div>

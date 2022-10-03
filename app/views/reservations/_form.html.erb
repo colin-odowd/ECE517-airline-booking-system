@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :flight_id %>
-    <%= form.select :flight_id, options_for_select(Flight.all.map {|f| [f.name, f.id]}, form.object.id), {}, onchange: "setMaxReservation()", disabled: !@reservation.flight.nil? %>
+    <%= form.select :flight_id, options_for_select(Flight.all.map {|f| [f.name, f.id]}, form.object.id), {}, onchange: "setMaxReservation()", disabled: form.object.persisted? %>
   </div>
 
   <div class="field">

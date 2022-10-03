@@ -32,7 +32,6 @@ class BaggagesController < ApplicationController
         format.html { redirect_to baggage_url(@baggage), notice: "Baggage was successfully created." }
         format.json { render :show, status: :created, location: @baggage }
       else
-        @baggage.reservation = nil
         flash[:warning] = "Baggage was not created."
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @baggage.errors, status: :unprocessable_entity }
