@@ -10,9 +10,13 @@
   </head>
 
   <body>
-      <% if logged_in? %>
-        Logged in as <%= current_user.name %>.      
+    <% if logged_in? %>
+      <% if current_user.admin %>
+        <p> Role: <u>Admin</u></p> 
+      <% else %>
+        <p> Role: <b>User</b></p> 
       <% end %>
-      <%= yield %>
+    <% end %>
+    <%= yield %>
   </body>
 </html>
