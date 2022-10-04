@@ -1,5 +1,13 @@
 # README
 
+## How to run
+
+`./run.sh`
+
+## How to unit test
+
+`./test.sh`
+
 ## Admin
 
 ```

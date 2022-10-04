@@ -1,5 +1,5 @@
 class Flight < ApplicationRecord
-    has_many :reservations, dependent: :delete_all
+    has_many :reservations, dependent: :destroy
 
     enum flight_class: [ :'Jumbo', :'Private', :'Small' ]
 
