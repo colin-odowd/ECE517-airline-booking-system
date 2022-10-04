@@ -3,6 +3,8 @@
 <h1>Reservations</h1>
 
 <table style="width:100%"> 
+  Search by user ID <input id="search" oninput="search()">
+
   <thead>
   <tr>
     <th>Confirmation Number&emsp;</th>
@@ -16,8 +18,7 @@
   </tr>
 </thead>
 
-  <tbody>  
-    <tbody>
+  <tbody id="reservations">
     <% @reservations.each do |reservation| %>
       <tr>
         <td style="text-align:center"><%= reservation.id %></td>
@@ -42,3 +43,22 @@
 <div>
   <%= link_to "Back to Home",  root_url %>
 </div>
+
+<script>
+
+function search() {
+  var filter = document.getElementById("search").value.trim().toLowerCase();
+  var reservations = document.getElementById("reservations");
+  for (var i = 0; i < reservations.rows.length; i++) {
+    var reservation = reservations.rows[i];
+    var user_id = reservation.cells[1].innerText.toLowerCase();
+
+    if (filter == "" || filter == user_id) {
+      reservation.style.display = '';
+    } else {
+      reservation.style.display = 'none';
+    }
+  }
+}
+
+</script>
