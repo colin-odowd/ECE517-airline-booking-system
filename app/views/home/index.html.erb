@@ -1,15 +1,13 @@
 <p id=”notice”><%= notice %></p>
 <h1>Flight Shopping Portal</h1>
-<p>Purchase a flight at the snap of your finger</p>
+<p>Purchase A Flight At The Snap Of Your Finger</p>
 <% if current_user %>
-  Logged in as <%= current_user.name %>.
-  <br>
   <%= link_to 'View All Flights', flights_path %><br>
   <%= link_to 'View All Reservations', reservations_path %><br>
   <%= link_to 'View All Baggages', baggages_path %><br>
 
 <% if current_user.admin %>
-  <%= link_to 'View all Users', users_path %><br>
+  <%= link_to 'View All Users', users_path %><br>
 <% else %>
   <%= link_to 'View Current User', users_path %><br>
 <% end %>
