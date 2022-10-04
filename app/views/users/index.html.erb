@@ -3,7 +3,9 @@
 <h1>Users</h1>
 
 <table style="width:100%">
+<% if @current_user.admin %>
   Search by user ID/name <input id="search" oninput="search()">
+<% end %>
 
   <thead>
     <tr>
